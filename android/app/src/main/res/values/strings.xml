@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Find Your Song</string>
+    <string name="title_activity_main">Find Your Song</string>
+    <string name="package_name">com.findyoursong.app</string>
+    <string name="custom_url_scheme">com.findyoursong.app</string>
+</resources>
