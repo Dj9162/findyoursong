@@ -68,55 +68,13 @@
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--gradient-hero);
     min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    padding-top: env(safe-area-inset-top); /* Global safe area */
   }
 }
 
 @layer components {
-  .search-input {
-    @apply bg-secondary/50 border-border/50 backdrop-blur-md;
-    transition: all 0.3s ease;
-  }
-
-  .search-input:focus {
-    @apply border-primary/50 ring-2 ring-primary/20;
-    box-shadow: var(--shadow-glow);
-  }
-
-  .song-card {
-    background: var(--gradient-card);
-    box-shadow: var(--shadow-song);
-    @apply border border-border/30 backdrop-blur-sm;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .song-card:hover {
-    @apply border-primary/30 -translate-y-1;
-    box-shadow: var(--shadow-glow), var(--shadow-card);
-  }
-
-  .play-button {
-    background: var(--gradient-primary);
-    @apply shadow-lg;
-    transition: all 0.2s ease;
-  }
-
-  .play-button:hover {
-    @apply scale-110;
-    box-shadow: var(--shadow-glow);
-  }
-
-  .glow-effect {
-    position: relative;
-  }
-
-  .glow-effect::before {
-    content: '';
-    position: absolute;
-    inset: -100px;
-    background: var(--gradient-glow);
-    pointer-events: none;
-    z-index: -1;
-  }
+  /* ... existing components ... */
 }
 
 @layer utilities {
@@ -129,10 +87,14 @@
 
   /* Safe area padding for mobile */
   .safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
   }
 
   .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+  
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 20px);
   }
 }

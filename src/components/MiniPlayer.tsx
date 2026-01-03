@@ -20,23 +20,23 @@ const MiniPlayer = () => {
     <div className="fixed bottom-0 left-0 right-0 z-50 safe-area-bottom">
       {/* Backdrop blur background */}
       <div className="absolute inset-0 bg-background/95 backdrop-blur-xl border-t border-border/50" />
-      
-      <div className="relative container py-3 px-4">
+
+      <div className="relative container py-2 px-3 md:py-3 md:px-4">
         {/* Progress bar - clickable on top */}
         <div className="absolute top-0 left-0 right-0 h-1 bg-muted/30">
-          <div 
+          <div
             className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-100"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="flex items-center gap-3 md:gap-4">
+        <div className="flex items-center gap-3">
           {/* Artwork */}
           <div className="relative shrink-0">
             <img
               src={artworkLarge}
               alt={currentSong.trackName}
-              className="w-12 h-12 md:w-14 md:h-14 rounded-lg object-cover shadow-lg"
+              className="w-10 h-10 md:w-14 md:h-14 rounded-lg object-cover shadow-lg"
             />
             {isPlaying && (
               <div className="absolute inset-0 rounded-lg border-2 border-primary/50 animate-pulse" />
@@ -45,10 +45,10 @@ const MiniPlayer = () => {
 
           {/* Song info */}
           <div className="flex-1 min-w-0">
-            <h4 className="font-semibold text-foreground text-sm md:text-base truncate">
+            <h4 className="font-semibold text-foreground text-sm md:text-base truncate leading-tight">
               {currentSong.trackName}
             </h4>
-            <p className="text-xs md:text-sm text-muted-foreground truncate">
+            <p className="text-xs md:text-sm text-muted-foreground truncate leading-tight">
               {currentSong.artistName}
             </p>
           </div>
@@ -69,16 +69,16 @@ const MiniPlayer = () => {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center gap-1 md:gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             {/* Main play/pause button */}
             <button
               onClick={togglePlay}
-              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-lg hover:scale-105 transition-transform active:scale-95"
+              className="w-9 h-9 md:w-12 md:h-12 rounded-full bg-gradient-to-r from-primary to-accent flex items-center justify-center shadow-lg hover:scale-105 transition-transform active:scale-95"
             >
               {isPlaying ? (
-                <Pause className="h-5 w-5 md:h-6 md:w-6 text-primary-foreground" />
+                <Pause className="h-4 w-4 md:h-6 md:w-6 text-primary-foreground" />
               ) : (
-                <Play className="h-5 w-5 md:h-6 md:w-6 text-primary-foreground ml-0.5" />
+                <Play className="h-4 w-4 md:h-6 md:w-6 text-primary-foreground ml-0.5" />
               )}
             </button>
 
@@ -95,15 +95,15 @@ const MiniPlayer = () => {
             {/* Close button */}
             <button
               onClick={closeMiniPlayer}
-              className="p-2 rounded-full hover:bg-muted/50 transition-colors"
+              className="p-1.5 md:p-2 rounded-full hover:bg-muted/50 transition-colors"
             >
               <X className="h-5 w-5 text-muted-foreground" />
             </button>
           </div>
         </div>
 
-        {/* Mobile time display */}
-        <div className="flex md:hidden items-center gap-2 mt-2 text-xs text-muted-foreground">
+        {/* Mobile time display - Optional: hide this if it still takes too much space, but keeping for now */}
+        {/* <div className="flex md:hidden items-center gap-2 mt-1 text-[10px] text-muted-foreground">
           <span>{formatTime(currentTime)}</span>
           <div className="flex-1">
             <Slider
@@ -115,7 +115,7 @@ const MiniPlayer = () => {
             />
           </div>
           <span>{formatTime(duration)}</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );
