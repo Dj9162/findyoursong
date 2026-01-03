@@ -1,0 +1,21 @@
+name: Generate Android Keystore
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-keystore:
+    name: Generate Keystore
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Keystore
+        run: |
+          keytool -genkey -v -keystore release.jks -alias release-key -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=SongFinder, OU=Mobile, O=SongFinder, L=Unknown, S=Unknown, C=US"
+          echo "Keystore generated successfully relative to $(pwd)"
+
+      - name: Upload Keystore
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-keystore
+          path: release.jks
+          retention-days: 1
