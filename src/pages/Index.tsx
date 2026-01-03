@@ -1,23 +1,18 @@
-import { useEffect, useRef } from "react";
 import SearchBar from "@/components/SearchBar";
 import SongGrid from "@/components/SongGrid";
 import { useMusicSearch } from "@/hooks/useMusicSearch";
 import { Music } from "lucide-react";
 
 const Index = () => {
-  const { searchQuery, songs, isLoading, hasSearched, handleSearch, clearSearch } = useMusicSearch();
-  const cleanupRef = useRef<(() => void) | undefined>();
-
-  useEffect(() => {
-    return () => {
-      cleanupRef.current?.();
-    };
-  }, []);
-
-  const onSearchChange = (value: string) => {
-    cleanupRef.current?.();
-    cleanupRef.current = handleSearch(value);
-  };
+  const { 
+    searchQuery, 
+    songs, 
+    isLoading, 
+    hasSearched, 
+    handleSearch, 
+    triggerImmediateSearch,
+    clearSearch 
+  } = useMusicSearch();
 
   return (
     <div className="min-h-screen">
@@ -41,24 +36,25 @@ const Index = () => {
             <span className="text-gradient">Perfect Sound</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Search millions of songs, preview tracks instantly, and discover new music you'll love.
+            Search millions of songs by typing or using your voice. Preview tracks instantly!
           </p>
         </div>
 
         <SearchBar
           value={searchQuery}
-          onChange={onSearchChange}
+          onChange={handleSearch}
+          onVoiceSearch={triggerImmediateSearch}
           onClear={clearSearch}
           isLoading={isLoading}
         />
       </section>
 
       {/* Results Section */}
-      <section className="container pb-20">
+      <section className="container pb-20 mt-8">
         {hasSearched && songs.length > 0 && (
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-foreground">
-              Found <span className="text-primary">{songs.length}</span> songs
+              Found <span className="text-primary">{songs.length}</span> songs for "{searchQuery}"
             </h2>
           </div>
         )}
