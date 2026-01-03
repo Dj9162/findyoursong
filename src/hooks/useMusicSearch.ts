@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 interface Song {
@@ -35,6 +35,15 @@ export const useMusicSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
 
+  // Debounce the search query
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
   const { data: songs = [], isLoading, isFetching } = useQuery({
     queryKey: ["music-search", debouncedQuery],
     queryFn: () => searchMusic(debouncedQuery),
@@ -44,13 +53,12 @@ export const useMusicSearch = () => {
 
   const handleSearch = useCallback((value: string) => {
     setSearchQuery(value);
-    
-    // Simple debounce using setTimeout
-    const timeoutId = setTimeout(() => {
-      setDebouncedQuery(value);
-    }, 400);
+  }, []);
 
-    return () => clearTimeout(timeoutId);
+  // Immediate search without debounce (for voice search)
+  const triggerImmediateSearch = useCallback((value: string) => {
+    setSearchQuery(value);
+    setDebouncedQuery(value);
   }, []);
 
   const clearSearch = useCallback(() => {
@@ -64,6 +72,7 @@ export const useMusicSearch = () => {
     isLoading: isLoading || isFetching,
     hasSearched: debouncedQuery.length > 0,
     handleSearch,
+    triggerImmediateSearch,
     clearSearch,
   };
 };
